@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>$action.getText("rocketchat.Configuration")</title>
+</head>
+<body>
+<form action="$req.contextPath/admin/plugins/rocketchat/save.action" method="post" class="aui">
+    #form_xsrfToken()
+    <h2>$action.getText("rocketchat.WebhookConfiguration")</h2>
+
+    #if($actionErrors && $actionErrors.size() > 0)
+    <div class="aui-message error">
+        <span class="svg-icon error size-18"></span>
+        <strong>$action.getText("errors.occurred")</strong>
+        <ul>
+            #foreach($error in $actionErrors)
+                <li>$error</li>
+            #end
+        </ul>
+    </div>
+    #end
+    #if($action.successfullUpdate)
+        <div class="aui-message success shadowed closeable">
+            <p class="title">
+                <span class="aui-icon icon-success"></span>
+                <strong>$action.getText("rocketchat.WebhookUpdateSuccess")</strong>
+            </p>
+        </div>
+        <!-- .aui-message -->
+    #end
+
+    <div class="field-group">
+        <label for="rocketchatUrl">Webhook URL<span class="aui-icon icon-required"></span><span class="content"> required</span></label>
+        <input id="rocketchatUrl" class="text" name="rocketchatUrl" value="$!action.rocketchatUrl"/>
+    </div>
+
+    <div class="buttons-container">
+        <div class="buttons">
+            <button class="button submit" type="submit">$action.getText("rocketchat.Save")</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="confluence-rocket-chat"/>
+  <rest name="Installation Service" i18n-name-key="installation-service.name" key="installation-service" path="/rocketchat/confluence" version="1.0">
+    <description key="installation-service.description">Installation endpoint for Rocket.Chat App</description>
+  </rest>
+
+  <web-item key="rocketchat-configuration" name="Rocket.Chat Configuration" section="system.admin/configuration"
+            weight="1000">
+    <description key="rocketchat.Configuration">Rocket.Chat Configuration</description>
+    <label key="rocketchat.Configuration"/>
+    <link linkId="rocketchat-configuration">/admin/plugins/rocketchat/configure.action</link>
+  </web-item>
+
+  <xwork name="rocketchatConfigurationAction" key="rocketchatConfigurationAction">
+    <package name="rocketchat-configure" extends="default" namespace="/admin/plugins/rocketchat">
+      <default-interceptor-ref name="defaultStack"/>
+
+      <action name="configure" class="chat.rocket.confluence.actions.ViewConfigurationAction">
+        <result name="success" type="velocity">/templates/configuration-form.vm</result>
+      </action>
+      <action name="save" class="chat.rocket.confluence.actions.SaveConfigurationAction">
+        <interceptor-ref name="validatingStack"/>
+        <param name="RequireSecurityToken">true</param>
+        <result name="input" type="velocity">/templates/configuration-form.vm</result>
+        <result name="error" type="velocity">/templates/configuration-form.vm</result>
+        <result name="success" type="redirect">/admin/plugins/rocketchat/configure.action?result=success</result>
+      </action>
+
+    </package>
+  </xwork>
+</atlassian-plugin>
