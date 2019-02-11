@@ -14,6 +14,8 @@ public class RocketChatNotification {
 
     private String userFullName;
 
+    private String spaceKey;
+
     private String pageTitle;
 
     private String pageUrl;
@@ -72,6 +74,17 @@ public class RocketChatNotification {
     public RocketChatNotification setPageContentType(String pageContentType)
     {
         this.pageContentType = pageContentType;
+        return this;
+    }
+
+    public String getSpaceKey()
+    {
+        return spaceKey;
+    }
+
+    public RocketChatNotification setSpaceKey(String spaceKey)
+    {
+        this.spaceKey = spaceKey;
         return this;
     }
 

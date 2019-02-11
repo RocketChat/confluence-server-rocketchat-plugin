@@ -54,6 +54,7 @@ public class RocketChatEventListener implements InitializingBean, DisposableBean
         notification
                 .setNotificationType(notificationType)
                 .setUserFullName(page.getLastModifier().getFullName())
+                .setSpaceKey(page.getSpaceKey())
                 .setPageContentType(page.getType())
                 .setPageTitle(page.getTitle())
                 .setPageUrl(
